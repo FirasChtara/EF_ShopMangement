@@ -19,5 +19,15 @@ namespace ShopManagement.API.Controllers
             }
         }
 
+        // TODO : Get Cutomers Who Buy the Max Products Prices
+        [HttpGet("/GetCustomerMaxBuying")]
+        public async Task<IEnumerable<Customer>> GetCustomerMaxBuying()
+        {
+            using (var context = new ShopEFContext())
+            {
+                var MaxCustomers =  context.Customers.OrderByDescending(o => o.Orders.SelectMany(x => x.OrderProducts).Sum(s => s.Price * s.Quantity));
+                return MaxCustomers;
+            }
+        }
     }
 }
