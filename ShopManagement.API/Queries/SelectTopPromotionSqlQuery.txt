@@ -1,0 +1,23 @@
+﻿
+/*Select Top Promotion*/
+select top(3) p.Id,p.Description Promotion , count(op.Quantity) as Quantity
+from promotion p 
+inner join PromotionProduct pp on p.Id = pp.PromotionId
+inner join Product pr on pp.ProductId = pr.Id
+inner join OrderProduct op on op.ProductId = pr.Id
+inner join [Order] o on op.OrderId = o.Id
+where (o.CreationDate between pp.FromDate and pp.ToDate)
+group by p.Id , p.Description
+order by Quantity desc
+
+
+
+
+
+/*Select Top Categries with Nbr Product*/
+
+select c.Id,c.CategoryName, count(p.Id) as Nbr
+from Caregory c
+inner join Product p on c.Id = p.CategoryId
+group by c.Id,c.CategoryName
+order by Nbr desc
