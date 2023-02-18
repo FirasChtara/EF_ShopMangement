@@ -1,0 +1,13 @@
+﻿1- Implémentez l'interface IDisposable sur votre classe.
+
+2- Créez une méthode privée nommée Dispose(bool disposing) qui sera appelée par les deux implémentations de Dispose().
+
+3- Dans la méthode Dispose(bool disposing), vérifiez si le paramètre disposing est true et nettoyez les ressources gérées.
+
+4- Dans la méthode Dispose(bool disposing), libérez également les ressources non gérées, telles que les handles d'objets non gérés, en utilisant GC.SuppressFinalize(this).
+
+5- Implémentez la méthode publique Dispose() qui appelle la méthode privée Dispose(bool disposing) avec disposing mis à true.
+
+6- Créez un destructeur qui appelle la méthode publique Dispose().
+
+---> Utilisez des instructions using pour libérer les ressources correctement lorsque vous n'en avez plus besoin.
