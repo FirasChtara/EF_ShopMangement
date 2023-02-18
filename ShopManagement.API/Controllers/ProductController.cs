@@ -17,10 +17,10 @@ namespace ShopManagement.API.Controllers
             using (var context = new ShopEFContext())
             {
 
-                var BigProduit =  context.Promotions.OrderByDescending(p => p.PromotionProducts
+                var BigProduit = context.Promotions.OrderByDescending(p => p.PromotionProducts
                                         .Max(pp => pp.Product.OrderProducts.Sum(o => o.Quantity))).Take(1);
-                                        //.Any(op=>op.Order.CreationDate >= pp.FromDate && op.CreationDate <= pp.ToDate))).ToListAsync();
-               
+                //.Any(op=>op.Order.CreationDate >= pp.FromDate && op.CreationDate <= pp.ToDate))).ToListAsync();
+
                 return BigProduit.FirstOrDefault();
             }
         }
@@ -38,6 +38,22 @@ namespace ShopManagement.API.Controllers
                 return result;
             }
         }
+
+
+
+        // Todo : Get Max Price Product Bought
+        [HttpGet("/GetMaxPriceProductBought")]
+        public Product GetMaxPriceProductBought()
+        {
+            using (var context = new ShopEFContext())
+            {
+
+                var result = context.Products.Where(p => p.OrderProducts.Count > 0).AsEnumerable().MaxBy(pp => pp.Price);
+
+                return result;
+            }
+        }
+
 
     }
 }
