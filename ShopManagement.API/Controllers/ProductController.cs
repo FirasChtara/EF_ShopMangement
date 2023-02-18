@@ -16,9 +16,6 @@ namespace ShopManagement.API.Controllers
         {
             using (var context = new ShopEFContext())
             {
-                //var BigProduit = await context.PromotionProducts.Where(p=>p.Product.OrderProducts
-                //                .Any(op=>op.Order.CreationDate>=p.FromDate && op.CreationDate<=p.ToDate))
-                //                    .Select(x=> new {x.Promotion,x.}).ToListAsync();
 
                 var BigProduit = await  context.Promotions.OrderByDescending(p=>p.PromotionProducts
                                         .Count(pp=>pp.Product.OrderProducts.
