@@ -63,11 +63,49 @@ namespace ShopManagement.API.Controllers
             {
 
                 var result = await context.Customers.Where(c => c.Orders
-                                    .Any(x => x.PaymentCustomers == null || x.PaymentCustomers.Count <= 0 )).ToListAsync();
+                                    .Any(x => x.PaymentCustomers == null || x.PaymentCustomers.Count <= 0)).ToListAsync();
 
                 return result;
             }
         }
 
+
+
+        // Todo : Get Order who is payed in many times
+        [HttpGet("/GetOrderPayedInManyTimes")]
+        public async Task<IEnumerable<Order>> GetOrderPayedInManyTimes()
+        {
+            using (var context = new ShopEFContext())
+            {
+                var result = await context.Orders.Where(p => p.PaymentCustomers.Count >=2).ToListAsync();
+
+                return result;
+            }
+        }
+
+        // Todo : Get Max Order who is payed in many times
+        [HttpGet("/GetMaxOrderPayedInManyTimes")]
+        public Order GetMaxOrderPayedInManyTimes()
+        {
+            using (var context = new ShopEFContext())
+            {
+                var result = context.Orders.OrderByDescending(p => p.PaymentCustomers.Count).FirstOrDefault();
+
+                return result;
+            }
+        }
+
+        // Todo : Get Order Ordred by Acending Max Payed Amout 
+        [HttpGet("/GetOrderOrdredbyMaxPayedAmout")]
+        public async Task<IEnumerable<Order>> GetOrderOrdredbyMaxPayedAmout()
+        {
+            using (var context = new ShopEFContext())
+            {
+                var result = await context.Orders.OrderBy(p => p.PaymentCustomers
+                                            .Sum(pc=>pc.SettlementAmount)).ToListAsync();
+
+                return result;
+            }
+        }
     }
 }
