@@ -29,5 +29,17 @@ namespace ShopManagement.API.Controllers
                 return MaxCustomers;
             }
         }
+
+        // TODO : Get Cutomers Type who uses the most payment type one
+        [HttpGet("/GetCustomerTypeTheMostPaymentTypeOne")]
+        public Models.Type GetCustomerTypeTheMostPaymentTypeOne()
+        {
+            using (var context = new ShopEFContext())
+            {
+
+                var result = context.Types.OrderByDescending(t=>t.Customers.Sum(c=>c.Orders.Count(o=>o.PaymentCustomers.Any(pc=>pc.PaymentTypeId==1)))).FirstOrDefault();
+                return result;
+            }
+        }
     }
 }

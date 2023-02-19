@@ -107,5 +107,18 @@ namespace ShopManagement.API.Controllers
                 return result;
             }
         }
+
+        // Todo : Get Order with rimining seltement Amount
+        [HttpGet("/GetOrderWithRiminingSeltementAmount")]
+        public async Task<IEnumerable<Order>> GetOrderWithRiminingSeltementAmount()
+        {
+            using (var context = new ShopEFContext())
+            {
+                var result = await context.Orders.Where(o=>o.OrderProducts.
+                                    Sum(op=>op.Price*op.Quantity)>o.PaymentCustomers.Sum(pc=>pc.SettlementAmount)).ToListAsync();
+
+                return result;
+            }
+        }
     }
 }
