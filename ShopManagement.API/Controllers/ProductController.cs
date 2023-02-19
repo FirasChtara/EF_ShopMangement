@@ -48,12 +48,26 @@ namespace ShopManagement.API.Controllers
             using (var context = new ShopEFContext())
             {
 
-                var result = context.Products.Where(p => p.OrderProducts.Count > 0).AsEnumerable().MaxBy(pp => pp.Price);
+                var result = context.Products.Where(p => p.OrderProducts.Count > 0).MaxBy(pp => pp.Price);
 
                 return result;
             }
         }
 
+
+        // Todo : Get Custmer without payment
+        [HttpGet("/GetCustmerWithoutPayment")]
+        public async Task<IEnumerable<Customer>> GetCustmerWithoutPayment()
+        {
+            using (var context = new ShopEFContext())
+            {
+
+                var result = await context.Customers.Where(c => c.Orders
+                                    .Any(x => x.PaymentCustomers == null || x.PaymentCustomers.Count <= 0 )).ToListAsync();
+
+                return result;
+            }
+        }
 
     }
 }
