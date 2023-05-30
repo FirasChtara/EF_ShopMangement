@@ -11,10 +11,13 @@ group by p.Id , p.Description
 order by Quantity desc
 
 
+
+
 left join promotion on p.id=l.id
 
 
 
+// Hereeeeeeeeeeeeeeeeeeeeeeeee *********************************
 
 
 /*Select Top Categries with Nbr Product*/

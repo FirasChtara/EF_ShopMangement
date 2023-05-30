@@ -11,6 +11,8 @@ namespace ShopManagement.API.Models
             paymentCustomers = new HashSet<PaymentCustomer>();
         }
 
+        // TODO : Verifiy 
+
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? UpdateDate { get; set; }
