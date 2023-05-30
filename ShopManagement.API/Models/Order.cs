@@ -7,8 +7,8 @@ namespace ShopManagement.API.Models
     {
         public Order()
         {
-            OrderProducts = new HashSet<OrderProduct>();
-            PaymentCustomers = new HashSet<PaymentCustomer>();
+            orderProducts = new HashSet<OrderProduct>();
+            paymentCustomers = new HashSet<PaymentCustomer>();
         }
 
         public int Id { get; set; }
@@ -17,7 +17,7 @@ namespace ShopManagement.API.Models
         public int CustomerId { get; set; }
 
         public virtual Customer Customer { get; set; } = null!;
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
-        public virtual ICollection<PaymentCustomer> PaymentCustomers { get; set; }
+        public virtual ICollection<OrderProduct> orderProducts { get; set; }
+        public virtual ICollection<PaymentCustomer> paymentCustomers { get; set; }
     }
 }
